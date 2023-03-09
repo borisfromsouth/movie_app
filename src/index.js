@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import App from './App';  // импортируем компонент (./ - импорт из файла той же папки)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 //  рендер результата функции App, результат возвращается в public -> index, реакт загружает основной файл index, рендерит остальные элементы и пропушивает их на места в разметке страницы
@@ -8,6 +8,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //  Формат  <App /> - JSX
 root.render(        
   <React.StrictMode> 
-    <App />
+    <App />  {/* добавляем компонент в разметку */}
   </React.StrictMode>
 );
