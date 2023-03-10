@@ -1,35 +1,44 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import axios from 'axios';
+import Movie from './Movie';
+import './App.css';  // css-файл просто импортируется
 
-/*function App() {
-  return (  // если компонент использует функцию -
-    <div>
-
-    </div>
-  );
-}*/
-
-class App extends React.Component{  // extends задает что App расширяет функционал класса React.Component
+class App extends React.Component{ 
 
   state = {
-    count: 0
+    isLoading: true,
+    movies: []
   };
 
-  plus = () => {
-    this.setState({count: this.state.count + 1});  // setState перезаписывает состояние и вызывает render для обноления страницы
+  componentDidMount(){  // отрабатывает только один раз
+    //setTimeout(() => {this.setState({isLoading: false})}, 2000);  // использовать функцию после выдержки в 2 сек
+    this.getMovies();
   }
 
-  minus = () => {
-    this.setState(current => ({count: current.count - 1})); // правильный вид оформления    current - текущее состояние компанента state
+  getMovies = async () => {
+    //const movies = await axios.get('https://yts.mx/api/v2/list_movies.json');  // запрос к Api на получение списка фильмов
+    //console.log(movies.data.data.movies);  // путь взят после просмотра полученного ответа object
+    const {data: {data: {movies}}} = await axios.get('https://yts.mx/api/v2/list_movies.json?sort_by=rating');  // обращение напрямую к внутренним компонентам полученного объекта + добавил sort_by для получения отсортированного по рейтингу массива фильмов
+    //console.log(movies);
+    this.setState({movies: movies, isLoading: false});
   }
 
-  render(){  // функция выводит html из этого компонента и вызывается при отбражении компонента автоматически
-    return <div>
-        <h1>Текущее число: {this.state.count}</h1>
-        <button onClick={this.plus}>Плюс</button>
-        <button onClick={this.minus}>Минус</button>
-      </div>
+  render(){ 
+    const {isLoading, movies} = this.state;  // выгружаем state 
+    return <section className='container'>  {/* возращаем блок */}
+      {isLoading ? 
+      <div className="loader">  {/* если в процессе загрузки - возращаем блок с сообщением */}
+        <span className="loader__text">Загрузка...</span>
+      </div> 
+      : 
+      <div className='movies'>
+        { movies.map( (movie) => 
+          (<Movie id={movie.id} year={movie.year} title={movie.title} summary={movie.summary} genres={movie.genres} poster={movie.medium_cover_image} />)
+          )}
+      </div>}
+    </section>;
   }
+
 }
 
-export default App; // экспорт файла с компонентами
+export default App;
