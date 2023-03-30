@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Movie.css';
 
-function Movie({id, year, title, summary, genres, poster}){
+function Movie({year, title, summary, genres, poster}){
     return <div className='movie'>
         <img src={poster} alt={title} title={title}/>
         <div className="movie_column">
@@ -11,7 +11,7 @@ function Movie({id, year, title, summary, genres, poster}){
             <ul className="movie_genres">
                 {genres.map((genre, index) => { return <li key={index} className='genres_genre'>{genre}</li>})}  {/* index для уникального идентификатора (вместо key) */}
             </ul>
-            <p className="movie_summary">{summary}</p>
+            <p className="movie_summary">{summary.slice(0, 200)}...</p>
         </div>
     </div>
 }
@@ -24,5 +24,14 @@ Movie.propTypes = {
     summary: PropTypes.string.isRequired,
     poster: PropTypes.string.isRequired
 };
+
+{/*function equalSizeDescription(summary){
+    while (summary.length < 200) 
+    {
+        summary += '.';
+        //console.log(summary);
+    }
+    return summary;
+}*/}
 
 export default Movie;

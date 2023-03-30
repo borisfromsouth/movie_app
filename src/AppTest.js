@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 class AppTest extends React.Component{  // extends задает что App расширяет функционал класса React.Component
 
   constructor(props){  // конструктор (не элемент React, а обычного JS) 
-    super(props);
+    super(props);      // super - аналог base в .Net
     console.log('Constructor');
   };
 
@@ -17,18 +17,18 @@ class AppTest extends React.Component{  // extends задает что App ра�
   }
 
   minus = () => {
-    this.setState(current => ({count: current.count - 1}));  // правильный вид оформления    current - текущее состояние компанента state
+    this.setState(current => ({count: current.count - 1}));  // правильный вид оформления   current - текущее состояние компанента state
   }
 
-  componentDidMount(){  // монтирование компонета в разметку странцы
-    console.log('Render finished');
+  componentDidMount(){  // монтирование компонета в разметку странцы после рендеринга 
+    console.log('Montage');
   }
 
   componentDidUpdate(){  // обновление компонета в разметке странцы
     console.log('UI Updated');
   }
 
-  componentWillUnmount(){  // обновление компонета в разметке странцы
+  componentWillUnmount(){  // удаление компонета с разметки странцы
     console.log('Component remove');
   }
 
