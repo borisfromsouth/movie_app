@@ -7,6 +7,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 //  рендер результата функции App, результат возвращается в public -> index, реакт загружает основной файл index, рендерит остальные элементы и пропушивает их на места в разметке страницы
 //  <App /> - компонент, по сути функция которая возвращает html-код
 //  Формат  <App /> - JSX
+
 root.render(        
   <React.StrictMode> 
     <App />

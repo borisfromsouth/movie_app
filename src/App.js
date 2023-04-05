@@ -1,22 +1,33 @@
-import React from 'react';
-import { HashRouter, Routes, Route } from 'react-router-dom';  // обработчик энд-поинтов
+import React from "react";
+import { BrowserRouter as Router , Routes, Route, Link } from "react-router-dom";  // обработчик энд-поинтов
 import Home from "./routes/Home";
 import About from "./routes/About";
-
-///
-/// Создание 
-///
+import Details from "./components/Details";
+import "./App.css";
 
 function App(){
-  return <HashRouter>
-    <Routes>
-      {/* <Route path="/" element={<Home/>}/>        отображается всегда если endpoint идет сразу после localhost-а */}
-      <Route path="/">
-        <h1>Main Page</h1>
-      </Route>
-      <Route path="/about" element={<About/>}/>  {/* если находимся то такому пути - отображаем указаный элемент */}
-    </Routes>
-  </HashRouter>
+  return <Router>  {/* берет URL и сопоставляет со всеми route-ами, если находимся то такому пути - отображаем указаный элемент <Navigation/>*/}
+    <div>  
+      <ul className="App-header">  
+        <li>  
+          <Link to="/">Home</Link>  
+        </li>  
+        <li>  
+          <Link to={{
+            pathname: "/about",
+            state:{
+              fromLocation: true
+            }
+          }}>About Us</Link>  
+        </li>
+      </ul>  
+      <Routes>
+        <Route path="/" exact={true} Component={Home}/>        {/* exact - свойство по отображению конкретного пути */}
+        <Route path="/about" Component={About}/>
+        <Route path="/movie-details" Component={Details}/>
+      </Routes>
+    </div>  
+  </Router>
 }
 
 export default App;
